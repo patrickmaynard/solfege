@@ -2,7 +2,7 @@
 
   class Solfege{
 
-    public function addSlugs(){
+    public function readData(){
       //Open the csv
       $raw = file_get_contents('solfege_divided.csv');
       $csv = str_getcsv($raw);
@@ -26,6 +26,11 @@
         }
         $output[$row][] = $value;
       }
+      return($output);
+    }
+
+    public function addSlugs($input){
+      $output = $input;
       //Now for each row of our output array, add a slug.
       //Slugs are lowercase. They replace all non-alphanumerics with dashes.
       foreach($output as $key=>$value){
@@ -33,23 +38,51 @@
         $slug = preg_replace('/-+/','-',$slug);
         $slug = preg_replace('/-$/','',$slug);
         $output[$key][] = $slug;
+      }
+      return($output);
+    }
 
+    public function convertThemes($input){
+      $output = $input;
+      foreach($output as $key=>$value){
+        $output[$key][7] = trim($output[$key][7]);
+        $themestring = $output[$key][7];
+        $themestring = str_replace('do','00',$themestring);
+        $themestring = str_replace('di','01',$themestring);
+        $themestring = str_replace('rah','01',$themestring);
+        $themestring = str_replace('re','02',$themestring);
+        $themestring = str_replace('ri','03',$themestring);
+        $themestring = str_replace('me','03',$themestring);
+        $themestring = str_replace('mi','04',$themestring);
+        $themestring = str_replace('fa','05',$themestring);
+        $themestring = str_replace('fi','06',$themestring);
+        $themestring = str_replace('se','06',$themestring);
+        $themestring = str_replace('sol','08',$themestring);
+        $themestring = str_replace('si','09',$themestring);
+        $themestring = str_replace('le','09',$themestring);
+        $themestring = str_replace('la','10',$themestring);
+        $themestring = str_replace('li','11',$themestring);
+        $themestring = str_replace('te','11',$themestring);
+        $themestring = str_replace('ti','12',$themestring);
+        $themestring = trim($themestring);
+        $themestring = preg_replace('/[^0-9 ]/','',$themestring);
+        $output[$key][] = $themestring;
       }
       print_r($output);
-      //TODO:Write a different csv
-      $fp = fopen('output.csv','w');
+
+      //Write a different csv
+      //TODO: Abstract this into a writeData() function
+      $fp = fopen('solfege-slugged.csv','w');
       foreach($output as $fields){
-        fputcsv($fp,$fields); 
+        fputcsv($fp,$fields);
       }
       fclose($fp);
-    }    
-    
-    public function convertThemes(){
-      //This is a stub for now.
     }
 
   }
 
-  Solfege::addSlugs();
+  $data = Solfege::readData();
+  $data = Solfege::addSlugs($data);
+  Solfege::convertThemes($data); 
 
 ?>
