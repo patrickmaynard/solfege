@@ -68,10 +68,12 @@
         $themestring = preg_replace('/[^0-9 ]/','',$themestring);
         $output[$key][] = $themestring;
       }
-      print_r($output);
+      return($output);
+    }
 
+    public function writeData($input){
       //Write a different csv
-      //TODO: Abstract this into a writeData() function
+      $output = $input;
       $fp = fopen('solfege-slugged.csv','w');
       foreach($output as $fields){
         fputcsv($fp,$fields);
