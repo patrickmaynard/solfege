@@ -85,6 +85,7 @@
 
   $data = Solfege::readData();
   $data = Solfege::addSlugs($data);
-  Solfege::convertThemes($data); 
+  $data = Solfege::convertThemes($data);
+  Solfege::writeData($data);
 
 ?>
