@@ -6,3 +6,5 @@ The project aims to make several of the most popular classical themes (plus a fe
 If you've seen The Sound of Music, you know a little bit of solfege. It's the "do re mi" representation of any given set of notes.
 
 For example, the theme to Beethoven's 5th symphony goes "sol sol sol me ... fa fa fa re."
+
+For more about solfege, see http://bit.ly/2hc2MlQ
