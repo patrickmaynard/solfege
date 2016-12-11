@@ -33,7 +33,7 @@ class Adams {
 		}
 		return($outputArray);	
 	}
-	public static function lower($inputArray,$position){
+	public static function lowerSingle($inputArray,$position){
 		//This function takes in a single set of syllables as an array.
 		//It then lowers the syllable at the given position and passes back a modified array.
 		$outputArray = $inputArray;
@@ -56,7 +56,7 @@ class Adams {
 		//It returns an array of variations that have the specified position toggled (lowered).
 		$outputArray = Array();
 		foreach($inputArray as $subArray){
-			$subArrayLowered = Adams::lower($subArray,$position);
+			$subArrayLowered = Adams::lowerSingle($subArray,$position);
 			$outputArray[] = $subArrayLowered;
 		}	
 		return($outputArray);
